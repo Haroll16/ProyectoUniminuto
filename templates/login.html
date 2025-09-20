@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Taller-Semana 2</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- SPINNER -->
+  <div class="spinner-overlay" id="spinner" style="display: none;">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="container">
+    <div class="left-panel">
+      <div class="welcome-box">
+        <h1>BIENVENIDOS</h1>
+        <h2>UNIMINUTO</h2>
+        <p>Taller. Puesta en marcha de una página web</p>
+      </div>
+    </div>
+    <div class="right-panel">
+      <div class="form-box">
+        <h2>INICIAR SESIÓN</h2>
+        {% if error %}
+          <p class="error">{{ error }}</p>
+        {% endif %}   
+    <form action="/login" method="POST" id="login-form" onsubmit="saveUsername()">
+          <div class="input-group">
+            <label for="username">CORREO</label>
+            <input type="text" name="username" id="username" placeholder="Enter your email" required>
+          </div>
+          <div class="input-group">
+            <label for="password">CONTRASEÑA</label>
+            <input type="password" name="password" id="password" placeholder="Enter your password" required>
+          </div>
+          <div class="btn-group">
+            <button type="submit" class="btn-filled">Iniciar Sesión</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT SPINNER -->
+  <script>
+    const form = document.getElementById("login-form");
+    const spinner = document.getElementById("spinner");
+
+    form.addEventListener("submit", function () {
+      // Mostrar el spinner
+      spinner.style.display = "flex";
+
+      // Deshabilitar botón para evitar múltiples envíos
+      const button = form.querySelector("button");
+      button.disabled = true;
+    });
+  </script>
+
+  <script>
+  function saveUsername() {
+    const username = document.getElementById("username").value;
+    localStorage.setItem("username", username);
+  }
+</script>
+
+</body>
+</html>
